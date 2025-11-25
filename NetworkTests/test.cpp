@@ -5,6 +5,7 @@
 #include "../NetworkProject/Switch.h"
 #include "../NetworkProject/ManagedSwitch.h"
 #include "../NetworkProject/Graph.h"
+#include "../NetworkProject/Protocol.h"
 
 TEST(RouterTests, ConstructorSetsValuesCorrectly) {
     Router r("R1", "192.168.0.1", "MAC", true, "Lab", 4, "Cisco", "v1.0");
@@ -127,4 +128,28 @@ TEST(GraphTests, DirectedGraph_Directionality) {
     EXPECT_TRUE(g.hasEdge(1, 2));
 
     EXPECT_FALSE(g.hasEdge(2, 1));
+}
+
+TEST(ProtocolTests, TCPSend) {
+    TCP tcpProtocol;
+    std::string msg = "Hello World";
+    std::string output = tcpProtocol.send(msg);
+    EXPECT_EQ(output, "TCP sending: Hello World");
+}
+
+TEST(ProtocolTests, UDPSend) {
+    UDP udpProtocol;
+    std::string msg = "Data Packet";
+    std::string output = udpProtocol.send(msg);
+
+    EXPECT_EQ(output, "UDP sending: Data Packet");
+}
+
+TEST(ProtocolTests, Polymorphism) {
+    Protocol* p = new TCP();
+    std::string output = p->send("Test");
+
+    EXPECT_EQ(output, "TCP sending: Test");
+
+    delete p;
 }
