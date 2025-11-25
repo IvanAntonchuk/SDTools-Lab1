@@ -18,6 +18,7 @@ public:
 
     void displayInfo() const override;
     void processPacket(const std::string& packetInfo) override;
+    int getVlanAtPort(int port) const;
 };
 
 #endif

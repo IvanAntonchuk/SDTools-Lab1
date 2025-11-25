@@ -41,3 +41,11 @@ void ManagedSwitch::processPacket(const std::string& packetInfo) {
     }
     std::cout << "[M-Switch " << name << "] Applying VLAN/QoS rules and forwarding... " << packetInfo << "\n";
 }
+
+int ManagedSwitch::getVlanAtPort(int port) const {
+    auto it = vlanDatabase.find(port);
+    if (it != vlanDatabase.end()) {
+        return it->second;
+    }
+    return -1;
+}
