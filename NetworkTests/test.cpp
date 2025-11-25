@@ -2,6 +2,8 @@
 #include "gtest/gtest.h"
 #include "../NetworkProject/Router.h"
 #include "../NetworkProject/Packet.h"
+#include "../NetworkProject/Switch.h"
+#include "../NetworkProject/ManagedSwitch.h"
 
 TEST(RouterTests, ConstructorSetsValuesCorrectly) {
     Router r("R1", "192.168.0.1", "MAC", true, "Lab", 4, "Cisco", "v1.0");
@@ -54,4 +56,41 @@ TEST(PacketTests, IntPayload) {
     std::string info = p.getPacketInfo();
 
     EXPECT_NE(info.find("404"), std::string::npos);
+}
+
+TEST(SwitchTests, ConnectDevice) {
+    Switch s;
+    s.connectDevice(1, "PC-1");
+
+    EXPECT_EQ(s.getDeviceAtPort(1), "PC-1");
+}
+
+TEST(SwitchTests, DisconnectDevice) {
+    Switch s;
+    s.connectDevice(2, "Printer");
+    s.disconnectDevice(2);
+
+    EXPECT_EQ(s.getDeviceAtPort(2), "Empty");
+}
+
+TEST(SwitchTests, PortInitiallyEmpty) {
+    Switch s;
+
+    EXPECT_EQ(s.getDeviceAtPort(5), "Empty");
+}
+
+TEST(ManagedSwitchTests, ConfigureVlan) {
+    ManagedSwitch ms("MS1", "1.1.1.1", "MAC", true, "Loc", 24, "Cisco", "10.0.0.1");
+    ms.configureVlan(5, 100);
+
+    EXPECT_EQ(ms.getVlanAtPort(5), 100);
+}
+
+TEST(ManagedSwitchTests, RemoveVlan) {
+    ManagedSwitch ms("MS1", "1.1.1.1", "MAC", true, "Loc", 24, "Cisco", "10.0.0.1");
+
+    ms.configureVlan(10, 200);
+    ms.removeVlan(10);
+
+    EXPECT_EQ(ms.getVlanAtPort(10), -1);
 }
