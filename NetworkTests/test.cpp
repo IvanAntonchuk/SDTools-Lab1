@@ -226,3 +226,30 @@ TEST(GraphTests, DirectedGraph_RemoveNode_ClearsIncidentEdges) {
 
     EXPECT_FALSE(g.hasEdge(1, 2));
 }
+
+TEST(GraphTests, StressTest_ManyNodes) {
+    AdjacencyListGraph g;
+    int nodeCount = 1000;
+    for (int i = 0; i < nodeCount; ++i) {
+        g.addNode(i);
+    }
+    for (int i = 0; i < nodeCount - 1; ++i) {
+        g.addEdge(i, i + 1);
+    }
+
+    EXPECT_TRUE(g.hasEdge(0, 1));
+    EXPECT_TRUE(g.hasEdge(998, 999));
+}
+
+TEST(RouterTests, StressTest_RoutingTableCheck) {
+    Router r;
+    int routesCount = 500;
+    for (int i = 0; i < routesCount; ++i) {
+        std::string ip = "192.168.1." + std::to_string(i);
+        std::string gw = "10.0.0." + std::to_string(i);
+        r.addRoute(ip, gw);
+    }
+
+    EXPECT_EQ(r.findRoute("192.168.1.0"), "10.0.0.0");
+    EXPECT_EQ(r.findRoute("192.168.1.499"), "10.0.0.499");
+}
