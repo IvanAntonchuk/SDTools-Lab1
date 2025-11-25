@@ -12,6 +12,7 @@ public:
     virtual void removeEdge(int from, int to) = 0;
     virtual void displayGraph() const = 0;
     virtual ~Graph() {}
+    virtual bool hasEdge(int from, int to) const = 0;
 };
 
 class AdjacencyListGraph : public Graph {
@@ -23,6 +24,7 @@ public:
     void removeNode(int node) override;
     void removeEdge(int from, int to) override;
     void displayGraph() const override;
+    bool hasEdge(int from, int to) const override;
 };
 
 class AdjacencyMatrixGraph : public Graph {
@@ -34,6 +36,7 @@ public:
     void removeNode(int node) override;
     void removeEdge(int from, int to) override;
     void displayGraph() const override;
+    bool hasEdge(int from, int to) const override;
 };
 
 class DirectedGraph : public Graph {
@@ -45,5 +48,6 @@ public:
     void removeNode(int node) override;
     void removeEdge(int from, int to) override;
     void displayGraph() const override;
+    bool hasEdge(int from, int to) const override;
 };
 #endif

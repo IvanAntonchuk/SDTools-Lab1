@@ -8,6 +8,11 @@ Switch::Switch(const std::string& n, const std::string& i, const std::string& m,
 }
 
 void Switch::connectDevice(int port, const std::string& deviceName) {
+    if (port < 1 || port > numPorts) {
+        std::cout << "[Switch " << name << "] Error: Port " << port << " does not exist!\n";
+        return;
+    }
+
     portStatus[port] = deviceName;
     std::string fakeMac = "FA:KE:MA:C:FF:" + std::to_string(port);
     macAddressTable[fakeMac] = port;
@@ -44,4 +49,12 @@ void Switch::processPacket(const std::string& packetInfo) {
         return;
     }
     std::cout << "[Switch " << name << "] Forwarding packet... " << packetInfo << "\n";
+}
+
+std::string Switch::getDeviceAtPort(int port) const {
+    auto it = portStatus.find(port);
+    if (it != portStatus.end()) {
+        return it->second;
+    }
+    return "Empty";
 }

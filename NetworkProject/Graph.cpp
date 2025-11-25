@@ -39,3 +39,23 @@ void DirectedGraph::removeEdge(int from, int to) {
 void DirectedGraph::displayGraph() const {
     for (auto& e : edges) std::cout << e.first << "->" << e.second << "\n";
 }
+
+bool AdjacencyListGraph::hasEdge(int from, int to) const {
+    if (from >= adjList.size()) return false;
+    for (int node : adjList[from]) {
+        if (node == to) return true;
+    }
+    return false;
+}
+
+bool AdjacencyMatrixGraph::hasEdge(int from, int to) const {
+    if (from >= matrix.size() || to >= matrix[from].size()) return false;
+    return matrix[from][to] == 1;
+}
+
+bool DirectedGraph::hasEdge(int from, int to) const {
+    for (const auto& edge : edges) {
+        if (edge.first == from && edge.second == to) return true;
+    }
+    return false;
+}

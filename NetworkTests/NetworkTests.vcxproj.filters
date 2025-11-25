@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\NetworkProject\Graph.cpp" />
+    <ClCompile Include="..\NetworkProject\ManagedSwitch.cpp" />
+    <ClCompile Include="..\NetworkProject\NetworkDevice.cpp" />
+    <ClCompile Include="..\NetworkProject\Protocol.cpp" />
+    <ClCompile Include="..\NetworkProject\Router.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\NetworkProject\Switch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
