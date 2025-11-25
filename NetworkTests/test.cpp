@@ -153,3 +153,39 @@ TEST(ProtocolTests, Polymorphism) {
 
     delete p;
 }
+
+TEST(ManagedSwitchTests, ConfigureVlan_InvalidPort_Negative) {
+    ManagedSwitch ms("MS1", "IP", "MAC", true, "Loc", 24, "Cisco", "MgmtIP");
+    ms.configureVlan(-5, 100);
+
+    EXPECT_EQ(ms.getVlanAtPort(-5), -1);
+}
+
+TEST(ManagedSwitchTests, ConfigureVlan_InvalidPort_OutOfBounds) {
+    ManagedSwitch ms("MS1", "IP", "MAC", true, "Loc", 24, "Cisco", "MgmtIP");
+    ms.configureVlan(25, 100);
+
+    EXPECT_EQ(ms.getVlanAtPort(25), -1);
+}
+
+TEST(RouterTests, FindRoute_NeverExisted) {
+    Router r;
+    std::string result = r.findRoute("1.2.3.4");
+
+    EXPECT_EQ(result, "Route not found");
+}
+
+TEST(GraphTests, SelfLoopEdge) {
+    AdjacencyListGraph g;
+    g.addNode(5);
+    g.addEdge(1, 1);
+
+    EXPECT_TRUE(g.hasEdge(1, 1));
+}
+
+TEST(PacketTests, EmptyPayload) {
+    Packet<std::string> p("Src", "Dst", "");
+    std::string info = p.getPacketInfo();
+
+    EXPECT_NE(info.find("Payload: \"\""), std::string::npos);
+}
