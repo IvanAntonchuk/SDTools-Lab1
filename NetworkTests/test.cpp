@@ -196,3 +196,33 @@ TEST(SwitchTests, ConnectDevice_InvalidPort_TooHigh) {
 
     EXPECT_EQ(s.getDeviceAtPort(100), "Empty");
 }
+
+TEST(SwitchTests, HotSwapDevice) {
+    Switch s("S1", "IP", "MAC", true, "Loc", 8, "Gen");
+    s.connectDevice(1, "PC-Old");
+
+    EXPECT_EQ(s.getDeviceAtPort(1), "PC-Old");
+
+    s.connectDevice(1, "PC-New");
+
+    EXPECT_EQ(s.getDeviceAtPort(1), "PC-New");
+}
+
+TEST(RouterTests, OverwriteExistingRoute_ViaAdd) {
+    Router r;
+    r.addRoute("10.0.0.5", "Gateway_A");
+    r.addRoute("10.0.0.5", "Gateway_B");
+
+    EXPECT_EQ(r.findRoute("10.0.0.5"), "Gateway_B");
+}
+
+TEST(GraphTests, DirectedGraph_RemoveNode_ClearsIncidentEdges) {
+    DirectedGraph g;
+    g.addNode(3);
+
+    g.addEdge(1, 2);
+    EXPECT_TRUE(g.hasEdge(1, 2));
+    g.removeNode(2);
+
+    EXPECT_FALSE(g.hasEdge(1, 2));
+}
