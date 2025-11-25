@@ -61,14 +61,14 @@ TEST(PacketTests, IntPayload) {
 }
 
 TEST(SwitchTests, ConnectDevice) {
-    Switch s;
+    Switch s("S1", "IP", "MAC", true, "Loc", 8, "Gen");
     s.connectDevice(1, "PC-1");
 
     EXPECT_EQ(s.getDeviceAtPort(1), "PC-1");
 }
 
 TEST(SwitchTests, DisconnectDevice) {
-    Switch s;
+    Switch s("S1", "IP", "MAC", true, "Loc", 8, "Gen");
     s.connectDevice(2, "Printer");
     s.disconnectDevice(2);
 
@@ -188,4 +188,11 @@ TEST(PacketTests, EmptyPayload) {
     std::string info = p.getPacketInfo();
 
     EXPECT_NE(info.find("Payload: \"\""), std::string::npos);
+}
+
+TEST(SwitchTests, ConnectDevice_InvalidPort_TooHigh) {
+    Switch s("S1", "IP", "MAC", true, "Loc", 8, "D-Link");
+    s.connectDevice(100, "HackerPC");
+
+    EXPECT_EQ(s.getDeviceAtPort(100), "Empty");
 }
