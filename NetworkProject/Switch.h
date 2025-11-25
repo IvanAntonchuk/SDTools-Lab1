@@ -22,6 +22,8 @@ public:
 
     void displayPortStatus() const;
 
+    virtual std::string getDeviceAtPort(int port) const;
+
     void displayInfo() const override;
 
     virtual void processPacket(const std::string& packetInfo) override;

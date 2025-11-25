@@ -45,3 +45,11 @@ void Switch::processPacket(const std::string& packetInfo) {
     }
     std::cout << "[Switch " << name << "] Forwarding packet... " << packetInfo << "\n";
 }
+
+std::string Switch::getDeviceAtPort(int port) const {
+    auto it = portStatus.find(port);
+    if (it != portStatus.end()) {
+        return it->second;
+    }
+    return "Empty";
+}

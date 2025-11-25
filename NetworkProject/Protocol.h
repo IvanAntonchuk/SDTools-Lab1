@@ -6,17 +6,17 @@
 
 class Protocol {
 public:
-    virtual void send(const std::string& message) = 0;
+    virtual std::string send(const std::string& message) = 0;
     virtual ~Protocol() {}
 };
 
 class TCP : public Protocol {
 public:
-    void send(const std::string& message) override;
+    std::string send(const std::string& message) override;
 };
 
 class UDP : public Protocol {
 public:
-    void send(const std::string& message) override;
+    std::string send(const std::string& message) override;
 };
 #endif

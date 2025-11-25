@@ -1,9 +1,13 @@
 #include "Protocol.h"
 
-void TCP::send(const std::string& message) {
-    std::cout << "TCP sending: " << message << "\n";
+std::string TCP::send(const std::string& message) {
+    std::string output = "TCP sending: " + message;
+    std::cout << output << "\n";
+    return output;
 }
 
-void UDP::send(const std::string& message) {
-    std::cout << "UDP sending: " << message << "\n";
-}   
+std::string UDP::send(const std::string& message) {
+    std::string output = "UDP sending: " + message;
+    std::cout << output << "\n";
+    return output;
+}
