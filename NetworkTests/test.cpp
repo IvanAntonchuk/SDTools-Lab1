@@ -4,6 +4,7 @@
 #include "../NetworkProject/Packet.h"
 #include "../NetworkProject/Switch.h"
 #include "../NetworkProject/ManagedSwitch.h"
+#include "../NetworkProject/Graph.h"
 
 TEST(RouterTests, ConstructorSetsValuesCorrectly) {
     Router r("R1", "192.168.0.1", "MAC", true, "Lab", 4, "Cisco", "v1.0");
@@ -93,4 +94,37 @@ TEST(ManagedSwitchTests, RemoveVlan) {
     ms.removeVlan(10);
 
     EXPECT_EQ(ms.getVlanAtPort(10), -1);
+}
+
+TEST(GraphTests, AdjacencyList_AddRemoveEdge) {
+    AdjacencyListGraph g;
+    g.addNode(5);
+
+    g.addEdge(1, 2);
+
+    EXPECT_TRUE(g.hasEdge(1, 2));
+
+    g.removeEdge(1, 2);
+
+    EXPECT_FALSE(g.hasEdge(1, 2));
+}
+
+TEST(GraphTests, AdjacencyMatrix_AddEdge) {
+    AdjacencyMatrixGraph g;
+    g.addNode(5);
+
+    g.addEdge(0, 4);
+
+    EXPECT_TRUE(g.hasEdge(0, 4));
+    EXPECT_FALSE(g.hasEdge(0, 3));
+}
+
+TEST(GraphTests, DirectedGraph_Directionality) {
+    DirectedGraph g;
+    g.addNode(5);
+    g.addEdge(1, 2);
+
+    EXPECT_TRUE(g.hasEdge(1, 2));
+
+    EXPECT_FALSE(g.hasEdge(2, 1));
 }
