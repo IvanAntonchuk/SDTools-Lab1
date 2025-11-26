@@ -1,3 +1,8 @@
+## Documentation (Автоматично згенерована довідка)
+https://ivanantonchuk.github.io/SDTools-Lab1/
+
+Документація проєкту, згенерована Doxygen та опублікована через GitHub Actions, доступна за посиланням:
+[Перейти до документації](https://ivanantonchuk.github.io/SDTools-Lab1/)
 # Network Simulation Project (Unit Testing Lab)
 
 Цей проєкт симулює роботу мережевого обладнання (Роутери, Комутатори, Графи мережі) та реалізує систему юніт-тестування для перевірки надійності коду.
