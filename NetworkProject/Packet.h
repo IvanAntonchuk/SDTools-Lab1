@@ -1,4 +1,4 @@
-#ifndef PACKET_H
+п»ї#ifndef PACKET_H
 #define PACKET_H
 
 #include <string>
@@ -6,32 +6,32 @@
 #include <sstream>
 
 /**
- * @brief Шаблонний клас для представлення мережевого пакету.
+ * @brief РЁР°Р±Р»РѕРЅРЅРёР№ РєР»Р°СЃ РґР»СЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРЅСЏ РјРµСЂРµР¶РµРІРѕРіРѕ РїР°РєРµС‚Сѓ.
  *
- * Дозволяє створювати пакети з різним типом корисного навантаження (Payload).
- * @tparam T Тип даних, що передаються (наприклад, string, int).
+ * Р”РѕР·РІРѕР»СЏС” СЃС‚РІРѕСЂСЋРІР°С‚Рё РїР°РєРµС‚Рё Р· СЂС–Р·РЅРёРј С‚РёРїРѕРј РєРѕСЂРёСЃРЅРѕРіРѕ РЅР°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ (Payload).
+ * @tparam T РўРёРї РґР°РЅРёС…, С‰Рѕ РїРµСЂРµРґР°СЋС‚СЊСЃСЏ (РЅР°РїСЂРёРєР»Р°Рґ, string, int).
  */
 template<typename T>
 class Packet {
 private:
-    std::string sourceIp;   ///< IP-адреса відправника
-    std::string destIp;     ///< IP-адреса отримувача
-    T payload;              ///< Корисне навантаження
+    std::string sourceIp;   ///< IP-Р°РґСЂРµСЃР° РІС–РґРїСЂР°РІРЅРёРєР°
+    std::string destIp;     ///< IP-Р°РґСЂРµСЃР° РѕС‚СЂРёРјСѓРІР°С‡Р°
+    T payload;              ///< РљРѕСЂРёСЃРЅРµ РЅР°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ
 
 public:
     /**
-     * @brief Створює новий пакет.
-     * @param src IP відправника.
-     * @param dest IP отримувача.
-     * @param data Дані пакету.
+     * @brief РЎС‚РІРѕСЂСЋС” РЅРѕРІРёР№ РїР°РєРµС‚.
+     * @param src IP РІС–РґРїСЂР°РІРЅРёРєР°.
+     * @param dest IP РѕС‚СЂРёРјСѓРІР°С‡Р°.
+     * @param data Р”Р°РЅС– РїР°РєРµС‚Сѓ.
      */
     Packet(const std::string& src, const std::string& dest, const T& data)
         : sourceIp(src), destIp(dest), payload(data) {
     }
 
     /**
-     * @brief Формує рядкове представлення пакету.
-     * @return Рядок з заголовками та даними.
+     * @brief Р¤РѕСЂРјСѓС” СЂСЏРґРєРѕРІРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРЅСЏ РїР°РєРµС‚Сѓ.
+     * @return Р СЏРґРѕРє Р· Р·Р°РіРѕР»РѕРІРєР°РјРё С‚Р° РґР°РЅРёРјРё.
      */
     std::string getPacketInfo() const {
         std::stringstream ss;
@@ -41,19 +41,19 @@ public:
     }
 
     /**
-     * @brief Отримати IP відправника.
+     * @brief РћС‚СЂРёРјР°С‚Рё IP РІС–РґРїСЂР°РІРЅРёРєР°.
      */
     const std::string& getSourceIp() const { return sourceIp; }
 
     /**
-     * @brief Отримати IP отримувача.
+     * @brief РћС‚СЂРёРјР°С‚Рё IP РѕС‚СЂРёРјСѓРІР°С‡Р°.
      */
     const std::string& getDestIp() const { return destIp; }
 };
 
 /**
- * @brief Спеціалізація шаблону Packet для типу std::string.
- * Додає лапки навколо текстових даних.
+ * @brief РЎРїРµС†С–Р°Р»С–Р·Р°С†С–СЏ С€Р°Р±Р»РѕРЅСѓ Packet РґР»СЏ С‚РёРїСѓ std::string.
+ * Р”РѕРґР°С” Р»Р°РїРєРё РЅР°РІРєРѕР»Рѕ С‚РµРєСЃС‚РѕРІРёС… РґР°РЅРёС….
  */
 template<>
 inline std::string Packet<std::string>::getPacketInfo() const {

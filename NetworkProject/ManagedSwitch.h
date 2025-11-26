@@ -1,65 +1,65 @@
-#ifndef MANAGEDSWITCH_H
+п»ї#ifndef MANAGEDSWITCH_H
 #define MANAGEDSWITCH_H
 
 #include "Switch.h"
 #include <vector>
 
 /**
- * @brief Керований комутатор з підтримкою VLAN.
+ * @brief РљРµСЂРѕРІР°РЅРёР№ РєРѕРјСѓС‚Р°С‚РѕСЂ Р· РїС–РґС‚СЂРёРјРєРѕСЋ VLAN.
  *
- * Розширює функціональність звичайного комутатора, додаючи можливість
- * налаштування віртуальних локальних мереж (VLAN) на окремих портах.
+ * Р РѕР·С€РёСЂСЋС” С„СѓРЅРєС†С–РѕРЅР°Р»СЊРЅС–СЃС‚СЊ Р·РІРёС‡Р°Р№РЅРѕРіРѕ РєРѕРјСѓС‚Р°С‚РѕСЂР°, РґРѕРґР°СЋС‡Рё РјРѕР¶Р»РёРІС–СЃС‚СЊ
+ * РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ РІС–СЂС‚СѓР°Р»СЊРЅРёС… Р»РѕРєР°Р»СЊРЅРёС… РјРµСЂРµР¶ (VLAN) РЅР° РѕРєСЂРµРјРёС… РїРѕСЂС‚Р°С….
  */
 class ManagedSwitch : public Switch {
 private:
-    std::map<int, int> vlanDatabase; ///< База даних VLAN (Порт -> VLAN ID)
-    std::string managementIp;        ///< IP-адреса для керування комутатором
+    std::map<int, int> vlanDatabase; ///< Р‘Р°Р·Р° РґР°РЅРёС… VLAN (РџРѕСЂС‚ -> VLAN ID)
+    std::string managementIp;        ///< IP-Р°РґСЂРµСЃР° РґР»СЏ РєРµСЂСѓРІР°РЅРЅСЏ РєРѕРјСѓС‚Р°С‚РѕСЂРѕРј
 
 public:
     /**
-     * @brief Конструктор керованого комутатора.
+     * @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРµСЂРѕРІР°РЅРѕРіРѕ РєРѕРјСѓС‚Р°С‚РѕСЂР°.
      *
-     * @param name Назва.
-     * @param ip IP-адреса.
-     * @param mac MAC-адреса.
-     * @param isOnline Статус.
-     * @param location Розташування.
-     * @param ports Кількість портів.
-     * @param manufacturer Виробник.
-     * @param managementIp IP-адреса інтерфейсу керування.
+     * @param name РќР°Р·РІР°.
+     * @param ip IP-Р°РґСЂРµСЃР°.
+     * @param mac MAC-Р°РґСЂРµСЃР°.
+     * @param isOnline РЎС‚Р°С‚СѓСЃ.
+     * @param location Р РѕР·С‚Р°С€СѓРІР°РЅРЅСЏ.
+     * @param ports РљС–Р»СЊРєС–СЃС‚СЊ РїРѕСЂС‚С–РІ.
+     * @param manufacturer Р’РёСЂРѕР±РЅРёРє.
+     * @param managementIp IP-Р°РґСЂРµСЃР° С–РЅС‚РµСЂС„РµР№СЃСѓ РєРµСЂСѓРІР°РЅРЅСЏ.
      */
     ManagedSwitch(const std::string& name, const std::string& ip, const std::string& mac, bool isOnline, const std::string& location,
         int ports, const std::string& manufacturer, const std::string& managementIp);
 
     /**
-     * @brief Призначає VLAN ID конкретному порту.
+     * @brief РџСЂРёР·РЅР°С‡Р°С” VLAN ID РєРѕРЅРєСЂРµС‚РЅРѕРјСѓ РїРѕСЂС‚Сѓ.
      *
-     * @param port Номер порту.
-     * @param vlanId Ідентифікатор VLAN (наприклад, 10, 20, 100).
+     * @param port РќРѕРјРµСЂ РїРѕСЂС‚Сѓ.
+     * @param vlanId Р†РґРµРЅС‚РёС„С–РєР°С‚РѕСЂ VLAN (РЅР°РїСЂРёРєР»Р°Рґ, 10, 20, 100).
      */
     void configureVlan(int port, int vlanId);
 
     /**
-     * @brief Видаляє налаштування VLAN з порту.
-     * @param port Номер порту.
+     * @brief Р’РёРґР°Р»СЏС” РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ VLAN Р· РїРѕСЂС‚Сѓ.
+     * @param port РќРѕРјРµСЂ РїРѕСЂС‚Сѓ.
      */
     void removeVlan(int port);
 
     /**
-     * @brief Отримати VLAN ID на порту.
-     * @param port Номер порту.
-     * @return VLAN ID або -1, якщо VLAN не налаштовано.
+     * @brief РћС‚СЂРёРјР°С‚Рё VLAN ID РЅР° РїРѕСЂС‚Сѓ.
+     * @param port РќРѕРјРµСЂ РїРѕСЂС‚Сѓ.
+     * @return VLAN ID Р°Р±Рѕ -1, СЏРєС‰Рѕ VLAN РЅРµ РЅР°Р»Р°С€С‚РѕРІР°РЅРѕ.
      */
     int getVlanAtPort(int port) const;
 
     /**
-     * @brief Виводить детальну інформацію, включаючи таблицю VLAN.
+     * @brief Р’РёРІРѕРґРёС‚СЊ РґРµС‚Р°Р»СЊРЅСѓ С–РЅС„РѕСЂРјР°С†С–СЋ, РІРєР»СЋС‡Р°СЋС‡Рё С‚Р°Р±Р»РёС†СЋ VLAN.
      */
     void displayInfo() const override;
 
     /**
-     * @brief Обробляє пакет з урахуванням правил VLAN.
-     * @param packetInfo Інформація про пакет.
+     * @brief РћР±СЂРѕР±Р»СЏС” РїР°РєРµС‚ Р· СѓСЂР°С…СѓРІР°РЅРЅСЏРј РїСЂР°РІРёР» VLAN.
+     * @param packetInfo Р†РЅС„РѕСЂРјР°С†С–СЏ РїСЂРѕ РїР°РєРµС‚.
      */
     void processPacket(const std::string& packetInfo) override;
 };

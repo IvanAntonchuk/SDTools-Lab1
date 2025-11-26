@@ -1,79 +1,79 @@
-#ifndef ROUTER_H
+п»ї#ifndef ROUTER_H
 #define ROUTER_H
 
 #include "NetworkDevice.h"
 #include <map>
 
 /**
- * @brief Клас, що моделює роботу маршрутизатора.
+ * @brief РљР»Р°СЃ, С‰Рѕ РјРѕРґРµР»СЋС” СЂРѕР±РѕС‚Сѓ РјР°СЂС€СЂСѓС‚РёР·Р°С‚РѕСЂР°.
  *
- * Роутер зберігає таблицю маршрутизації та вміє знаходити шлюз
- * для заданої IP-адреси призначення.
+ * Р РѕСѓС‚РµСЂ Р·Р±РµСЂС–РіР°С” С‚Р°Р±Р»РёС†СЋ РјР°СЂС€СЂСѓС‚РёР·Р°С†С–С— С‚Р° РІРјС–С” Р·РЅР°С…РѕРґРёС‚Рё С€Р»СЋР·
+ * РґР»СЏ Р·Р°РґР°РЅРѕС— IP-Р°РґСЂРµСЃРё РїСЂРёР·РЅР°С‡РµРЅРЅСЏ.
  */
 class Router : public NetworkDevice {
 private:
-    int numPorts;                                   ///< Кількість фізичних портів
-    std::map<std::string, std::string> routingTable;///< Таблиця маршрутизації (Dest -> Gateway)
-    std::string model;                              ///< Модель роутера
-    std::string firmwareVersion;                    ///< Версія прошивки
+    int numPorts;                                   ///< РљС–Р»СЊРєС–СЃС‚СЊ С„С–Р·РёС‡РЅРёС… РїРѕСЂС‚С–РІ
+    std::map<std::string, std::string> routingTable;///< РўР°Р±Р»РёС†СЏ РјР°СЂС€СЂСѓС‚РёР·Р°С†С–С— (Dest -> Gateway)
+    std::string model;                              ///< РњРѕРґРµР»СЊ СЂРѕСѓС‚РµСЂР°
+    std::string firmwareVersion;                    ///< Р’РµСЂСЃС–СЏ РїСЂРѕС€РёРІРєРё
 
 public:
     /**
-     * @brief Конструктор за замовчуванням.
+     * @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р·Р° Р·Р°РјРѕРІС‡СѓРІР°РЅРЅСЏРј.
      */
     Router();
 
     /**
-     * @brief Параметризований конструктор.
-     * @param name Назва.
+     * @brief РџР°СЂР°РјРµС‚СЂРёР·РѕРІР°РЅРёР№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
+     * @param name РќР°Р·РІР°.
      * @param ip IP.
      * @param mac MAC.
-     * @param isOnline Статус.
-     * @param location Розташування.
-     * @param numPorts Кількість портів.
-     * @param model Модель.
-     * @param firmwareVersion Прошивка.
+     * @param isOnline РЎС‚Р°С‚СѓСЃ.
+     * @param location Р РѕР·С‚Р°С€СѓРІР°РЅРЅСЏ.
+     * @param numPorts РљС–Р»СЊРєС–СЃС‚СЊ РїРѕСЂС‚С–РІ.
+     * @param model РњРѕРґРµР»СЊ.
+     * @param firmwareVersion РџСЂРѕС€РёРІРєР°.
      */
     Router(const std::string& name, const std::string& ip, const std::string& mac, bool isOnline, const std::string& location,
         int numPorts, const std::string& model, const std::string& firmwareVersion);
 
     /**
-     * @brief Додає новий маршрут у таблицю.
+     * @brief Р”РѕРґР°С” РЅРѕРІРёР№ РјР°СЂС€СЂСѓС‚ Сѓ С‚Р°Р±Р»РёС†СЋ.
      *
-     * @param dest IP-адреса призначення.
-     * @param gateway IP-адреса шлюзу.
+     * @param dest IP-Р°РґСЂРµСЃР° РїСЂРёР·РЅР°С‡РµРЅРЅСЏ.
+     * @param gateway IP-Р°РґСЂРµСЃР° С€Р»СЋР·Сѓ.
      */
     void addRoute(const std::string& dest, const std::string& gateway);
 
     /**
-     * @brief Видаляє маршрут з таблиці.
-     * @param dest IP-адреса призначення для видалення.
+     * @brief Р’РёРґР°Р»СЏС” РјР°СЂС€СЂСѓС‚ Р· С‚Р°Р±Р»РёС†С–.
+     * @param dest IP-Р°РґСЂРµСЃР° РїСЂРёР·РЅР°С‡РµРЅРЅСЏ РґР»СЏ РІРёРґР°Р»РµРЅРЅСЏ.
      */
     void removeRoute(const std::string& dest);
 
     /**
-     * @brief Оновлює шлюз для існуючого маршруту.
-     * @param dest IP-адреса призначення.
-     * @param newGateway Новий шлюз.
+     * @brief РћРЅРѕРІР»СЋС” С€Р»СЋР· РґР»СЏ С–СЃРЅСѓСЋС‡РѕРіРѕ РјР°СЂС€СЂСѓС‚Сѓ.
+     * @param dest IP-Р°РґСЂРµСЃР° РїСЂРёР·РЅР°С‡РµРЅРЅСЏ.
+     * @param newGateway РќРѕРІРёР№ С€Р»СЋР·.
      */
     void updateRoute(const std::string& dest, const std::string& newGateway);
 
     /**
-     * @brief Шукає маршрут до вказаної адреси.
+     * @brief РЁСѓРєР°С” РјР°СЂС€СЂСѓС‚ РґРѕ РІРєР°Р·Р°РЅРѕС— Р°РґСЂРµСЃРё.
      *
-     * @param dest IP-адреса призначення.
-     * @return IP-адреса шлюзу або повідомлення про помилку, якщо маршрут не знайдено.
+     * @param dest IP-Р°РґСЂРµСЃР° РїСЂРёР·РЅР°С‡РµРЅРЅСЏ.
+     * @return IP-Р°РґСЂРµСЃР° С€Р»СЋР·Сѓ Р°Р±Рѕ РїРѕРІС–РґРѕРјР»РµРЅРЅСЏ РїСЂРѕ РїРѕРјРёР»РєСѓ, СЏРєС‰Рѕ РјР°СЂС€СЂСѓС‚ РЅРµ Р·РЅР°Р№РґРµРЅРѕ.
      */
     std::string findRoute(const std::string& dest) const;
 
     /**
-     * @brief Виводить інформацію про роутер та таблицю маршрутизації.
+     * @brief Р’РёРІРѕРґРёС‚СЊ С–РЅС„РѕСЂРјР°С†С–СЋ РїСЂРѕ СЂРѕСѓС‚РµСЂ С‚Р° С‚Р°Р±Р»РёС†СЋ РјР°СЂС€СЂСѓС‚РёР·Р°С†С–С—.
      */
     void displayInfo() const override;
 
     /**
-     * @brief Обробляє пакет (логіка маршрутизації).
-     * @param packetInfo Інформація про пакет.
+     * @brief РћР±СЂРѕР±Р»СЏС” РїР°РєРµС‚ (Р»РѕРіС–РєР° РјР°СЂС€СЂСѓС‚РёР·Р°С†С–С—).
+     * @param packetInfo Р†РЅС„РѕСЂРјР°С†С–СЏ РїСЂРѕ РїР°РєРµС‚.
      */
     void processPacket(const std::string& packetInfo) override;
 };

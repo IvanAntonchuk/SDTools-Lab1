@@ -1,53 +1,53 @@
-#ifndef GRAPH_H
+п»ї#ifndef GRAPH_H
 #define GRAPH_H
 
 #include <vector>
 #include <iostream>
 
 /**
- * @brief Інтерфейс для роботи з графами мережі.
+ * @brief Р†РЅС‚РµСЂС„РµР№СЃ РґР»СЏ СЂРѕР±РѕС‚Рё Р· РіСЂР°С„Р°РјРё РјРµСЂРµР¶С–.
  *
- * Визначає базові операції, які має підтримувати будь-яка реалізація графа
- * (додавання/видалення вершин та ребер).
+ * Р’РёР·РЅР°С‡Р°С” Р±Р°Р·РѕРІС– РѕРїРµСЂР°С†С–С—, СЏРєС– РјР°С” РїС–РґС‚СЂРёРјСѓРІР°С‚Рё Р±СѓРґСЊ-СЏРєР° СЂРµР°Р»С–Р·Р°С†С–СЏ РіСЂР°С„Р°
+ * (РґРѕРґР°РІР°РЅРЅСЏ/РІРёРґР°Р»РµРЅРЅСЏ РІРµСЂС€РёРЅ С‚Р° СЂРµР±РµСЂ).
  */
 class Graph {
 public:
     /**
-     * @brief Додає нову вершину (вузол) у граф.
-     * @param node Номер вершини.
+     * @brief Р”РѕРґР°С” РЅРѕРІСѓ РІРµСЂС€РёРЅСѓ (РІСѓР·РѕР») Сѓ РіСЂР°С„.
+     * @param node РќРѕРјРµСЂ РІРµСЂС€РёРЅРё.
      */
     virtual void addNode(int node) = 0;
 
     /**
-     * @brief Додає ребро між двома вершинами.
-     * @param from Початкова вершина.
-     * @param to Кінцева вершина.
+     * @brief Р”РѕРґР°С” СЂРµР±СЂРѕ РјС–Р¶ РґРІРѕРјР° РІРµСЂС€РёРЅР°РјРё.
+     * @param from РџРѕС‡Р°С‚РєРѕРІР° РІРµСЂС€РёРЅР°.
+     * @param to РљС–РЅС†РµРІР° РІРµСЂС€РёРЅР°.
      */
     virtual void addEdge(int from, int to) = 0;
 
     /**
-     * @brief Видаляє вершину та всі пов'язані з нею ребра.
-     * @param node Номер вершини.
+     * @brief Р’РёРґР°Р»СЏС” РІРµСЂС€РёРЅСѓ С‚Р° РІСЃС– РїРѕРІ'СЏР·Р°РЅС– Р· РЅРµСЋ СЂРµР±СЂР°.
+     * @param node РќРѕРјРµСЂ РІРµСЂС€РёРЅРё.
      */
     virtual void removeNode(int node) = 0;
 
     /**
-     * @brief Видаляє ребро між вершинами.
-     * @param from Початкова вершина.
-     * @param to Кінцева вершина.
+     * @brief Р’РёРґР°Р»СЏС” СЂРµР±СЂРѕ РјС–Р¶ РІРµСЂС€РёРЅР°РјРё.
+     * @param from РџРѕС‡Р°С‚РєРѕРІР° РІРµСЂС€РёРЅР°.
+     * @param to РљС–РЅС†РµРІР° РІРµСЂС€РёРЅР°.
      */
     virtual void removeEdge(int from, int to) = 0;
 
     /**
-     * @brief Перевіряє наявність ребра.
-     * @param from Початкова вершина.
-     * @param to Кінцева вершина.
-     * @return true, якщо ребро існує.
+     * @brief РџРµСЂРµРІС–СЂСЏС” РЅР°СЏРІРЅС–СЃС‚СЊ СЂРµР±СЂР°.
+     * @param from РџРѕС‡Р°С‚РєРѕРІР° РІРµСЂС€РёРЅР°.
+     * @param to РљС–РЅС†РµРІР° РІРµСЂС€РёРЅР°.
+     * @return true, СЏРєС‰Рѕ СЂРµР±СЂРѕ С–СЃРЅСѓС”.
      */
     virtual bool hasEdge(int from, int to) const = 0;
 
     /**
-     * @brief Виводить структуру графа у консоль.
+     * @brief Р’РёРІРѕРґРёС‚СЊ СЃС‚СЂСѓРєС‚СѓСЂСѓ РіСЂР°С„Р° Сѓ РєРѕРЅСЃРѕР»СЊ.
      */
     virtual void displayGraph() const = 0;
 
@@ -55,12 +55,12 @@ public:
 };
 
 /**
- * @brief Реалізація графа на основі списку суміжності.
- * Ефективна для розріджених графів.
+ * @brief Р РµР°Р»С–Р·Р°С†С–СЏ РіСЂР°С„Р° РЅР° РѕСЃРЅРѕРІС– СЃРїРёСЃРєСѓ СЃСѓРјС–Р¶РЅРѕСЃС‚С–.
+ * Р•С„РµРєС‚РёРІРЅР° РґР»СЏ СЂРѕР·СЂС–РґР¶РµРЅРёС… РіСЂР°С„С–РІ.
  */
 class AdjacencyListGraph : public Graph {
 private:
-    std::vector<std::vector<int>> adjList; ///< Список суміжності
+    std::vector<std::vector<int>> adjList; ///< РЎРїРёСЃРѕРє СЃСѓРјС–Р¶РЅРѕСЃС‚С–
 public:
     void addNode(int node) override;
     void addEdge(int from, int to) override;
@@ -71,12 +71,12 @@ public:
 };
 
 /**
- * @brief Реалізація графа на основі матриці суміжності.
- * Ефективна для щільних графів.
+ * @brief Р РµР°Р»С–Р·Р°С†С–СЏ РіСЂР°С„Р° РЅР° РѕСЃРЅРѕРІС– РјР°С‚СЂРёС†С– СЃСѓРјС–Р¶РЅРѕСЃС‚С–.
+ * Р•С„РµРєС‚РёРІРЅР° РґР»СЏ С‰С–Р»СЊРЅРёС… РіСЂР°С„С–РІ.
  */
 class AdjacencyMatrixGraph : public Graph {
 private:
-    std::vector<std::vector<int>> matrix; ///< Матриця суміжності (0/1)
+    std::vector<std::vector<int>> matrix; ///< РњР°С‚СЂРёС†СЏ СЃСѓРјС–Р¶РЅРѕСЃС‚С– (0/1)
 public:
     void addNode(int node) override;
     void addEdge(int from, int to) override;
@@ -87,12 +87,12 @@ public:
 };
 
 /**
- * @brief Орієнтований граф (Directed Graph).
- * Ребра мають напрямок (from -> to).
+ * @brief РћСЂС–С”РЅС‚РѕРІР°РЅРёР№ РіСЂР°С„ (Directed Graph).
+ * Р РµР±СЂР° РјР°СЋС‚СЊ РЅР°РїСЂСЏРјРѕРє (from -> to).
  */
 class DirectedGraph : public Graph {
 private:
-    std::vector<std::pair<int, int>> edges; ///< Список ребер
+    std::vector<std::pair<int, int>> edges; ///< РЎРїРёСЃРѕРє СЂРµР±РµСЂ
 public:
     void addNode(int node) override;
     void addEdge(int from, int to) override;

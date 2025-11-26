@@ -1,71 +1,71 @@
-#ifndef SWITCH_H
+п»ї#ifndef SWITCH_H
 #define SWITCH_H
 
 #include "NetworkDevice.h"
 #include <map>
 
 /**
- * @brief Клас, що моделює роботу мережевого комутатора (світча).
+ * @brief РљР»Р°СЃ, С‰Рѕ РјРѕРґРµР»СЋС” СЂРѕР±РѕС‚Сѓ РјРµСЂРµР¶РµРІРѕРіРѕ РєРѕРјСѓС‚Р°С‚РѕСЂР° (СЃРІС–С‚С‡Р°).
  *
- * Зберігає таблицю MAC-адрес та стан портів. Дозволяє підключати пристрої до портів.
+ * Р—Р±РµСЂС–РіР°С” С‚Р°Р±Р»РёС†СЋ MAC-Р°РґСЂРµСЃ С‚Р° СЃС‚Р°РЅ РїРѕСЂС‚С–РІ. Р”РѕР·РІРѕР»СЏС” РїС–РґРєР»СЋС‡Р°С‚Рё РїСЂРёСЃС‚СЂРѕС— РґРѕ РїРѕСЂС‚С–РІ.
  */
 class Switch : public NetworkDevice {
 protected:
-    int numPorts;                               ///< Загальна кількість портів
-    std::map<int, std::string> portStatus;      ///< Стан портів (Номер порту -> Назва пристрою)
-    std::string manufacturer;                   ///< Виробник
+    int numPorts;                               ///< Р—Р°РіР°Р»СЊРЅР° РєС–Р»СЊРєС–СЃС‚СЊ РїРѕСЂС‚С–РІ
+    std::map<int, std::string> portStatus;      ///< РЎС‚Р°РЅ РїРѕСЂС‚С–РІ (РќРѕРјРµСЂ РїРѕСЂС‚Сѓ -> РќР°Р·РІР° РїСЂРёСЃС‚СЂРѕСЋ)
+    std::string manufacturer;                   ///< Р’РёСЂРѕР±РЅРёРє
 
-    std::map<std::string, int> macAddressTable; ///< Таблиця MAC-адрес (MAC -> Порт)
+    std::map<std::string, int> macAddressTable; ///< РўР°Р±Р»РёС†СЏ MAC-Р°РґСЂРµСЃ (MAC -> РџРѕСЂС‚)
 
 public:
     /**
-     * @brief Конструктор за замовчуванням.
+     * @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р·Р° Р·Р°РјРѕРІС‡СѓРІР°РЅРЅСЏРј.
      */
     Switch();
 
     /**
-     * @brief Параметризований конструктор.
-     * Детальний опис параметрів див. у NetworkDevice.
-     * @param ports Кількість портів.
-     * @param manufacturer Виробник.
+     * @brief РџР°СЂР°РјРµС‚СЂРёР·РѕРІР°РЅРёР№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ.
+     * Р”РµС‚Р°Р»СЊРЅРёР№ РѕРїРёСЃ РїР°СЂР°РјРµС‚СЂС–РІ РґРёРІ. Сѓ NetworkDevice.
+     * @param ports РљС–Р»СЊРєС–СЃС‚СЊ РїРѕСЂС‚С–РІ.
+     * @param manufacturer Р’РёСЂРѕР±РЅРёРє.
      */
     Switch(const std::string& name, const std::string& ip, const std::string& mac, bool isOnline, const std::string& location,
         int ports, const std::string& manufacturer);
 
     /**
-     * @brief Підключає пристрій до вказаного порту.
+     * @brief РџС–РґРєР»СЋС‡Р°С” РїСЂРёСЃС‚СЂС–Р№ РґРѕ РІРєР°Р·Р°РЅРѕРіРѕ РїРѕСЂС‚Сѓ.
      *
-     * Метод емулює навчання комутатора (MAC learning).
-     * @param port Номер порту (1..numPorts).
-     * @param deviceName Назва підключеного пристрою.
+     * РњРµС‚РѕРґ РµРјСѓР»СЋС” РЅР°РІС‡Р°РЅРЅСЏ РєРѕРјСѓС‚Р°С‚РѕСЂР° (MAC learning).
+     * @param port РќРѕРјРµСЂ РїРѕСЂС‚Сѓ (1..numPorts).
+     * @param deviceName РќР°Р·РІР° РїС–РґРєР»СЋС‡РµРЅРѕРіРѕ РїСЂРёСЃС‚СЂРѕСЋ.
      */
     virtual void connectDevice(int port, const std::string& deviceName);
 
     /**
-     * @brief Відключає пристрій від порту.
-     * @param port Номер порту.
+     * @brief Р’С–РґРєР»СЋС‡Р°С” РїСЂРёСЃС‚СЂС–Р№ РІС–Рґ РїРѕСЂС‚Сѓ.
+     * @param port РќРѕРјРµСЂ РїРѕСЂС‚Сѓ.
      */
     virtual void disconnectDevice(int port);
 
     /**
-     * @brief Повертає назву пристрою на порту.
-     * @param port Номер порту.
-     * @return Назва пристрою або "Empty", якщо порт вільний.
+     * @brief РџРѕРІРµСЂС‚Р°С” РЅР°Р·РІСѓ РїСЂРёСЃС‚СЂРѕСЋ РЅР° РїРѕСЂС‚Сѓ.
+     * @param port РќРѕРјРµСЂ РїРѕСЂС‚Сѓ.
+     * @return РќР°Р·РІР° РїСЂРёСЃС‚СЂРѕСЋ Р°Р±Рѕ "Empty", СЏРєС‰Рѕ РїРѕСЂС‚ РІС–Р»СЊРЅРёР№.
      */
     virtual std::string getDeviceAtPort(int port) const;
 
     /**
-     * @brief Виводить статус усіх портів.
+     * @brief Р’РёРІРѕРґРёС‚СЊ СЃС‚Р°С‚СѓСЃ СѓСЃС–С… РїРѕСЂС‚С–РІ.
      */
     void displayPortStatus() const;
 
     /**
-     * @brief Виводить повну інформацію про комутатор.
+     * @brief Р’РёРІРѕРґРёС‚СЊ РїРѕРІРЅСѓ С–РЅС„РѕСЂРјР°С†С–СЋ РїСЂРѕ РєРѕРјСѓС‚Р°С‚РѕСЂ.
      */
     void displayInfo() const override;
 
     /**
-     * @brief Обробляє пакет (комутація кадрів).
+     * @brief РћР±СЂРѕР±Р»СЏС” РїР°РєРµС‚ (РєРѕРјСѓС‚Р°С†С–СЏ РєР°РґСЂС–РІ).
      */
     virtual void processPacket(const std::string& packetInfo) override;
 };
