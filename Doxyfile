@@ -1,0 +1,10 @@
+PROJECT_NAME           = "Network Simulation Project"
+PROJECT_NUMBER         = "1.0"
+PROJECT_BRIEF          = "Simulation of network devices logic and routing"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = NetworkProject
+RECURSIVE              = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+USE_MATHJAX            = NO
